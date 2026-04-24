@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ejercicio #28 – Celsius a Fahrenheit</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f1117; --surface: #181c27; --border: #252a3a;
+      --accent: #00e5a0; --text: #e2e8f0; --muted: #5a6480;
+    }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'IBM Plex Sans', sans-serif;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 2rem;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: radial-gradient(var(--border) 1px, transparent 1px);
+      background-size: 28px 28px; opacity: 0.6; z-index: 0; pointer-events: none;
+    }
+    .card {
+      position: relative; z-index: 1; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 2rem; width: 100%; max-width: 400px;
+    }
+    .back {
+      display: inline-block; font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem; color: var(--accent); text-decoration: none;
+      letter-spacing: 0.08em; margin-bottom: 1.5rem;
+    }
+    .back:hover { text-decoration: underline; }
+    .num { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 0.3rem; }
+    h1 { font-family: 'IBM Plex Mono', monospace; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .formula { font-size: 0.75rem; color: var(--muted); font-family: 'IBM Plex Mono', monospace; margin-bottom: 1.5rem; }
+    label { display: block; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.35rem; font-family: 'IBM Plex Mono', monospace; }
+    input[type="number"] {
+      width: 100%; padding: 0.6rem 0.85rem; font-size: 1rem;
+      font-family: 'IBM Plex Mono', monospace;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 5px; color: var(--text); outline: none; margin-bottom: 0.85rem;
+    }
+    input[type="number"]:focus { border-color: var(--accent); }
+    input::-webkit-inner-spin-button { -webkit-appearance: none; }
+    button {
+      width: 100%; padding: 0.65rem; font-size: 0.9rem; font-weight: 600;
+      font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.08em;
+      background: var(--accent); color: #0f1117; border: none;
+      border-radius: 5px; cursor: pointer; transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.85; }
+    #resultado {
+      margin-top: 1.25rem; font-family: 'IBM Plex Mono', monospace;
+      font-size: 1rem; font-weight: 600; color: var(--accent);
+      min-height: 1.4rem; text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <a class="back" href="index.html">← Volver al índice</a>
+    <p class="num">#28</p>
+    <h1>Celsius → Fahrenheit</h1>
+    <p class="formula">F = C × 9/5 + 32</p>
+    <label for="celsius">Temperatura en Celsius</label>
+    <input type="number" id="celsius" placeholder="Ej: 25" step="any" />
+    <button id="btnConvertir">Convertir</button>
+    <p id="resultado"></p>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var input = document.getElementById("celsius");
+      var boton = document.getElementById("btnConvertir");
+      var resultado = document.getElementById("resultado");
+      function convertir() {
+        var celsius = parseFloat(input.value);
+        if (isNaN(celsius)) { resultado.textContent = "Ingresa un número válido."; return; }
+        var fahrenheit = celsius * 9 / 5 + 32;
+        resultado.textContent = celsius + " Celsius = " + fahrenheit.toFixed(1) + " Fahrenheit";
+      }
+      boton.addEventListener("click", convertir);
+      input.addEventListener("keydown", function (e) { if (e.key === "Enter") convertir(); });
+    });
+  </script>
+</body>
+</html>

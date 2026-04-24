@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ejercicios JS</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f1117;
+      --surface: #181c27;
+      --border: #252a3a;
+      --accent: #00e5a0;
+      --accent2: #0099ff;
+      --text: #e2e8f0;
+      --muted: #5a6480;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', sans-serif;
+      min-height: 100vh;
+      padding: 3rem 1.5rem;
+    }
+
+    /* dotted bg */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(var(--border) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.6;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* header */
+    .header {
+      margin-bottom: 2.5rem;
+      border-left: 3px solid var(--accent);
+      padding-left: 1.25rem;
+      animation: fadeIn 0.5s ease both;
+    }
+
+    .header-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .header h1 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text);
+    }
+
+    .header p {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem 1.25rem 1rem;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.05s; }
+    .card:nth-child(2) { animation-delay: 0.10s; }
+    .card:nth-child(3) { animation-delay: 0.15s; }
+    .card:nth-child(4) { animation-delay: 0.20s; }
+    .card:nth-child(5) { animation-delay: 0.25s; }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,229,160,0.08);
+    }
+
+    .card:hover::after { transform: scaleX(1); }
+
+    .card-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+    }
+
+    .card-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .card-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .card-arrow {
+      margin-top: auto;
+      padding-top: 0.75rem;
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 0.06em;
+    }
+
+    /* footer */
+    .footer {
+      margin-top: 2.5rem;
+      text-align: center;
+      font-size: 0.65rem;
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 0.1em;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-12px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <p class="header-label">Portafolio</p>
+      <h1>Ejercicios<br/>JavaScript</h1>
+      <p>Colección de ejercicios prácticos de lógica y programación web.</p>
+    </div>
+
+    <div class="grid">
+      <a class="card" href="ejercicio28.html">
+        <span class="card-num">#28</span>
+        <span class="card-title">Celsius → Fahrenheit</span>
+        <span class="card-desc">Convierte una temperatura en grados Celsius a Fahrenheit usando la fórmula F = C × 9/5 + 32.</span>
+        <span class="card-arrow">Abrir ejercicio →</span>
+      </a>
+
+      <a class="card" href="ejercicio29.html">
+        <span class="card-num">#29</span>
+        <span class="card-title">Par o Impar</span>
+        <span class="card-desc">Determina si un número ingresado es par o impar usando el operador módulo.</span>
+        <span class="card-arrow">Abrir ejercicio →</span>
+      </a>
+
+      <a class="card" href="ejercicio30.html">
+        <span class="card-num">#30</span>
+        <span class="card-title">Crear Usuario</span>
+        <span class="card-desc">Genera un nombre de usuario y las iniciales a partir de un nombre y apellido ingresados.</span>
+        <span class="card-arrow">Abrir ejercicio →</span>
+      </a>
+
+      <a class="card" href="ejercicio31.html">
+        <span class="card-num">#31</span>
+        <span class="card-title">Edad para Votar</span>
+        <span class="card-desc">Verifica si una persona tiene 18 años o más para determinar si puede ejercer el voto.</span>
+        <span class="card-arrow">Abrir ejercicio →</span>
+      </a>
+
+      <a class="card" href="ejercicio32.html">
+        <span class="card-num">#32</span>
+        <span class="card-title">Calculadora de Calificaciones</span>
+        <span class="card-desc">Convierte una puntuación numérica (0–100) en una calificación con letra: A, B, C, D o F.</span>
+        <span class="card-arrow">Abrir ejercicio →</span>
+      </a>
+    </div>
+
+    <p class="footer">ejercicios #28 – #32 &nbsp;·&nbsp; HTML · CSS · JS</p>
+  </div>
+</body>
+</html>

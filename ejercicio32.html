@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ejercicio #32 – Calculadora de Calificaciones</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f1117; --surface: #181c27; --border: #252a3a;
+      --accent: #00e5a0; --text: #e2e8f0; --muted: #5a6480;
+    }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'IBM Plex Sans', sans-serif;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 2rem;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: radial-gradient(var(--border) 1px, transparent 1px);
+      background-size: 28px 28px; opacity: 0.6; z-index: 0; pointer-events: none;
+    }
+    .card { position: relative; z-index: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; width: 100%; max-width: 400px; }
+    .back { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--accent); text-decoration: none; letter-spacing: 0.08em; margin-bottom: 1.5rem; }
+    .back:hover { text-decoration: underline; }
+    .num { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 0.3rem; }
+    h1 { font-family: 'IBM Plex Mono', monospace; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .scale {
+      display: flex; gap: 0.4rem; margin-bottom: 1.5rem; margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .scale span {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem;
+      color: var(--muted); background: var(--bg);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 2px 7px; letter-spacing: 0.06em;
+    }
+    label { display: block; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.35rem; font-family: 'IBM Plex Mono', monospace; }
+    input[type="number"] {
+      width: 100%; padding: 0.6rem 0.85rem; font-size: 1rem;
+      font-family: 'IBM Plex Mono', monospace;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 5px; color: var(--text); outline: none; margin-bottom: 0.85rem;
+    }
+    input[type="number"]:focus { border-color: var(--accent); }
+    input::-webkit-inner-spin-button { -webkit-appearance: none; }
+    button {
+      width: 100%; padding: 0.65rem; font-size: 0.9rem; font-weight: 600;
+      font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.08em;
+      background: var(--accent); color: #0f1117; border: none;
+      border-radius: 5px; cursor: pointer; transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.85; }
+    #resultado { margin-top: 1.25rem; font-family: 'IBM Plex Mono', monospace; font-size: 2rem; font-weight: 700; color: var(--accent); min-height: 1.4rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <a class="back" href="index.html">← Volver al índice</a>
+    <p class="num">#32</p>
+    <h1>Calculadora de Calificaciones</h1>
+    <div class="scale">
+      <span>90–100 → A</span>
+      <span>80–89 → B</span>
+      <span>70–79 → C</span>
+      <span>60–69 → D</span>
+      <span>&lt;60 → F</span>
+    </div>
+    <label for="puntuacion">Puntuación (0 – 100)</label>
+    <input type="number" id="puntuacion" placeholder="Ej: 85" min="0" max="100" />
+    <button id="btnCalificar">Calcular</button>
+    <p id="resultado"></p>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var input = document.getElementById("puntuacion");
+      var boton = document.getElementById("btnCalificar");
+      var resultado = document.getElementById("resultado");
+      function calcular() {
+        var p = parseInt(input.value);
+        if (isNaN(p) || p < 0 || p > 100) { resultado.textContent = "Ingresa un valor entre 0 y 100."; return; }
+        var letra;
+        if (p >= 90)      letra = "A";
+        else if (p >= 80) letra = "B";
+        else if (p >= 70) letra = "C";
+        else if (p >= 60) letra = "D";
+        else              letra = "F";
+        resultado.textContent = letra;
+      }
+      boton.addEventListener("click", calcular);
+      input.addEventListener("keydown", function (e) { if (e.key === "Enter") calcular(); });
+    });
+  </script>
+</body>
+</html>
