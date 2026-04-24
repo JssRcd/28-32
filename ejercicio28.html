@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ejercicio #28 – Celsius a Fahrenheit</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f0f0f0;
+    }
+
+    h1 { margin-bottom: 1rem; font-size: 1.4rem; }
+
+    .form-group {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    input[type="number"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      width: 140px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background: #e44d26;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover { background: #c0391b; }
+
+    #resultado {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Conversión Celsius → Fahrenheit</h1>
+
+  <div class="form-group">
+    <input type="number" id="celsius" placeholder="Ej: 25" step="any" />
+    <button id="btnConvertir">Convertir</button>
+  </div>
+
+  <p id="resultado"></p>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var input = document.getElementById("celsius");
+      var boton = document.getElementById("btnConvertir");
+      var resultado = document.getElementById("resultado");
+
+      function convertir() {
+        var celsius = parseFloat(input.value);
+
+        if (isNaN(celsius)) {
+          resultado.textContent = "Por favor ingresa un número válido.";
+          return;
+        }
+
+        var fahrenheit = celsius * 9 / 5 + 32;
+        resultado.textContent = celsius + " Celsius = " + fahrenheit.toFixed(1) + " Fahrenheit";
+      }
+
+      boton.addEventListener("click", convertir);
+
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") convertir();
+      });
+    });
+  </script>
+</body>
+</html>
